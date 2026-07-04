@@ -1,0 +1,6 @@
+{
+  "/hub/page": "app/hub/page.js",
+  "/page": "app/page.js",
+  "/personagem/editar/page": "app/personagem/editar/page.js",
+  "/ranking/page": "app/ranking/page.js"
+}

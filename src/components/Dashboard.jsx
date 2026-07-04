@@ -3,10 +3,13 @@ import { loadGameState, saveGameState, resetGameState } from "../utils/storage";
 import PetCard from "./PetCard";
 import BattleQuiz from "./BattleQuiz";
 import LevelUpModal from "./LevelUpModal";
+import MathShip from "./mathShip";
+import ArtGame from "./ArtGame";
 
 export default function Dashboard() {
   const [gameState, setGameState] = useState(loadGameState());
   const [activeBattle, setActiveBattle] = useState(null);
+  const [activeMiniGame, setActiveMiniGame] = useState(null); // <-- Novo estado para controlar minigames abertos
   const [levelUpInfo, setLevelUpInfo] = useState(null);
 
   const handleBattleEnd = (subject, xpGained, victory) => {
@@ -67,6 +70,17 @@ export default function Dashboard() {
 
   const { student, pets } = gameState;
 
+  // Se o minigame da navinha estiver ativo, renderiza em tela cheia
+  if (activeMiniGame === "mathShip") {
+    return <MathShip onBack={() => setActiveMiniGame(null)} />;
+  }
+
+  // Se o minigame de artes estiver ativo
+  if (activeMiniGame === "artGame") {
+    return <ArtGame onBack={() => setActiveMiniGame(null)} />;
+  }
+
+  // Se uma batalha normal de Studymon estiver ativa
   if (activeBattle) {
     return (
       <BattleQuiz
@@ -113,11 +127,48 @@ export default function Dashboard() {
         </button>
       </header>
 
+      {/* Sessão dos Pets Originais */}
       <h3 className="text-xl font-bold text-slate-700 mb-4">Seus Studymons</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {Object.entries(pets).map(([key, pet]) => (
           <PetCard key={key} pet={pet} onBattle={() => setActiveBattle(key)} />
         ))}
+      </div>
+
+      {/* Sessão de Minigames Adicionada */}
+      <h3 className="text-xl font-bold text-slate-700 mt-10 mb-4">Arcade / Minigames</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+        {/* Card do MathShip usando Tailwind */}
+        <div className="bg-slate-800 rounded-2xl p-5 flex flex-col justify-between shadow transition-transform hover:-translate-y-1">
+          <div>
+            <h4 className="font-bold text-lg text-white mb-2">🚀 Math Ship</h4>
+            <p className="text-sm text-slate-300 mb-4">
+              Sobreviva no espaço resolvendo cálculos matemáticos antes que os asteroides destruam sua nave.
+            </p>
+          </div>
+          <button
+            onClick={() => setActiveMiniGame("mathShip")}
+            className="w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold transition-colors"
+          >
+            Jogar Agora
+          </button>
+        </div>
+        {/* Card do Art Game */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between shadow transition-transform hover:-translate-y-1">
+          <div>
+            <h4 className="font-bold text-lg text-rose-500 mb-2">🎨 Cores Mágicas</h4>
+            <p className="text-sm text-slate-500 mb-4">
+              Aprenda a teoria das cores misturando cores primárias para pintar as imagens perfeitamente.
+            </p>
+          </div>
+          <button
+            onClick={() => setActiveMiniGame("artGame")}
+            className="w-full py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-bold transition-colors"
+          >
+            Pintar Agora
+          </button>
+        </div>
       </div>
 
       {levelUpInfo && (

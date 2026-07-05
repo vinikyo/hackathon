@@ -1,4 +1,4 @@
-// File: C:\Users\cg3033856\Documents\estudimons-backend-corrigido\app\page.js
+// File: C:\Users\cg3035573\Desktop\hackathon\hackathon\app\page.js
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -10,23 +10,39 @@ const CORES = {
   ciencias: "var(--mat-ciencias)",
   ingles: "var(--mat-ingles)",
   erer: "var(--mat-erer)",
+  arte: "var(--mat-arte)",
+  geografia: "var(--mat-geografia)",
+  historia: "var(--mat-historia)",
+};
+
+// versão clara da cor, usada como fundo do livro do monstro atual
+const CORES_CLARAS = {
+  portugues: "var(--mat-portugues-claro)",
+  matematica: "var(--mat-matematica-claro)",
+  ciencias: "var(--mat-ciencias-claro)",
+  ingles: "var(--mat-ingles-claro)",
+  erer: "var(--mat-erer-claro)",
+  arte: "var(--mat-arte-claro)",
+  geografia: "var(--mat-geografia-claro)",
+  historia: "var(--mat-historia-claro)",
 };
 
 export default function StudymonsCliente({ aluno, materias }) {
   const [i, setI] = useState(0);
   const m = materias[i];
   const cor = CORES[m.id] || "var(--verde)";
+  const corClara = CORES_CLARAS[m.id] || "var(--card)";
   const progressoPct = Math.min(100, Math.round((m.xp / m.xpProximoNivel) * 100));
 
   return (
-    <div>
+    <div className="studymon-pagina" style={{ background: corClara, transition: "background 0.3s ease" }}>
       <StudyHeader aluno={aluno} />
       <div className="tela">
         <div className="tela-centro">
           <div className="studymon-wrap">
             <div className="studymon-livro-bloco">
               <button className="seta" onClick={() => setI((v) => Math.max(0, v - 1))} disabled={i === 0} aria-label="Anterior">‹</button>
-              <div className="studymon-livro">
+              <div className="studymon-livro" style={{ "--cor-materia": "var(--card)" }}>
                 {m.spriteLivro ? (
                   <img src={m.spriteLivro} alt={m.companheiro} />
                 ) : (

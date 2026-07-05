@@ -220,9 +220,6 @@
 .mt-3 {
   margin-top: 0.75rem;
 }
-.mt-4 {
-  margin-top: 1rem;
-}
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -268,9 +265,6 @@
 .h-64 {
   height: 16rem;
 }
-.h-9 {
-  height: 2.25rem;
-}
 .h-screen {
   height: 100vh;
 }
@@ -297,9 +291,6 @@
 }
 .w-64 {
   width: 16rem;
-}
-.w-9 {
-  width: 2.25rem;
 }
 .w-full {
   width: 100%;
@@ -465,6 +456,10 @@
 .border-none {
   border-style: none;
 }
+.border-emerald-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(110 231 183 / var(--tw-border-opacity, 1));
+}
 .border-emerald-400 {
   --tw-border-opacity: 1;
   border-color: rgb(52 211 153 / var(--tw-border-opacity, 1));
@@ -472,6 +467,10 @@
 .border-emerald-600 {
   --tw-border-opacity: 1;
   border-color: rgb(5 150 105 / var(--tw-border-opacity, 1));
+}
+.border-red-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(252 165 165 / var(--tw-border-opacity, 1));
 }
 .border-red-400 {
   --tw-border-opacity: 1;
@@ -497,9 +496,16 @@
   --tw-border-opacity: 1;
   border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
 }
+.border-slate-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(71 85 105 / var(--tw-border-opacity, 1));
+}
 .border-slate-700 {
   --tw-border-opacity: 1;
   border-color: rgb(51 65 85 / var(--tw-border-opacity, 1));
+}
+.bg-black\/30 {
+  background-color: rgb(0 0 0 / 0.3);
 }
 .bg-black\/70 {
   background-color: rgb(0 0 0 / 0.7);
@@ -591,6 +597,9 @@
 .bg-slate-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-900\/95 {
+  background-color: rgb(15 23 42 / 0.95);
 }
 .bg-slate-950 {
   --tw-bg-opacity: 1;
@@ -920,9 +929,9 @@
   --tw-text-opacity: 1;
   color: rgb(15 23 42 / var(--tw-text-opacity, 1));
 }
-.text-teal-400 {
+.text-teal-300 {
   --tw-text-opacity: 1;
-  color: rgb(45 212 191 / var(--tw-text-opacity, 1));
+  color: rgb(94 234 212 / var(--tw-text-opacity, 1));
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -1000,8 +1009,8 @@
   --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
-.drop-shadow-\[0_0_10px_rgba\(45\2c 212\2c 191\2c 0\.5\)\] {
-  --tw-drop-shadow: drop-shadow(0 0 10px rgba(45,212,191,0.5));
+.drop-shadow-\[0_0_10px_rgba\(0\2c 0\2c 0\2c 0\.8\)\] {
+  --tw-drop-shadow: drop-shadow(0 0 10px rgba(0,0,0,0.8));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .drop-shadow-\[0_0_10px_rgba\(52\2c 211\2c 153\2c 0\.3\)\] {
@@ -1045,6 +1054,9 @@
 }
 .duration-1000 {
   transition-duration: 1000ms;
+}
+.duration-200 {
+  transition-duration: 200ms;
 }
 .duration-300 {
   transition-duration: 300ms;
@@ -1100,6 +1112,15 @@
   --mat-geografia: #34b7c9;
   --mat-arte: #f05b8e;
   --mat-historia: #b5893f;
+  /* versões claras (fundo da sessão de studymons) */
+  --mat-portugues-claro: #ffe6de;
+  --mat-matematica-claro: #dde9fb;
+  --mat-ciencias-claro: #d7f3e9;
+  --mat-ingles-claro: #ece2fb;
+  --mat-erer-claro: #fbedd6;
+  --mat-geografia-claro: #d6f0f4;
+  --mat-arte-claro: #fbdfe9;
+  --mat-historia-claro: #f0e6d4;
 }
 
 * { box-sizing: border-box; }
@@ -1238,6 +1259,10 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; margin: 0; }
 .study-nav a:last-child { border-radius: 0 16px 16px 0; }
 
 /* área de conteúdo interno */
+/* página inteira do studymons: a cor da matéria cobre tudo abaixo do
+   header. Sem flex no wrapper (pra não interferir no header sticky). */
+.studymon-pagina { min-height: 100vh; }
+.studymon-pagina .tela { background: transparent; min-height: 70vh; padding: 1.5rem 1.2rem 3rem; }
 .tela { background: transparent; min-height: 60vh; padding: 1.5rem 1.2rem 3rem; }
 .tela-centro { max-width: 980px; margin: 0 auto; }
 
@@ -1261,7 +1286,7 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; margin: 0; }
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 .jogo-grande:hover { transform: translateY(-4px); box-shadow: var(--sombra-forte); }
-.jogo-grande img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; }
+.jogo-grande img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: center center; object-position: center center; display: block; }
 
 /* cabeçalho de cada matéria: bolinha colorida + nome, faixa própria */
 .materia-cab {
@@ -1291,7 +1316,7 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; margin: 0; }
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 .jogo-card:not(.travado):hover { transform: translateY(-4px); box-shadow: var(--sombra-forte); }
-.jogo-card img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; }
+.jogo-card img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; -o-object-position: center center; object-position: center center; display: block; }
 /* card não-clicável (só o 1º de cada linha leva ao jogo) */
 .jogo-card.travado, .jogo-grande.travado { cursor: default; }
 
@@ -1317,12 +1342,13 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; margin: 0; }
    inserida preenche todo o espaço disponível. */
 .studymon-livro-bloco { display: flex; align-items: center; gap: 0.8rem; }
 .studymon-livro {
-  background: var(--card); box-shadow: var(--sombra-forte); border-radius: 28px;
+  background: var(--cor-materia, var(--card)); box-shadow: var(--sombra-forte); border-radius: 28px;
   flex: 1; align-self: stretch; min-height: 460px; display: grid; place-items: center;
-  overflow: hidden; position: relative; padding: 0;
+  overflow: hidden; position: relative; padding: 1.5rem;
+  transition: background 0.3s ease;
 }
-/* a imagem cobre todo o livro, cortando o excesso pra preencher */
-.studymon-livro img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block; }
+/* a imagem aparece INTEIRA (sem cortar), centralizada, com respiro */
+.studymon-livro img { max-width: 100%; max-height: 100%; width: auto; height: auto; -o-object-fit: contain; object-fit: contain; display: block; }
 .studymon-info {
   background: var(--card); box-shadow: var(--sombra-forte); border-radius: 28px;
   padding: 2rem; display: flex; flex-direction: column; justify-content: center;
@@ -1480,6 +1506,85 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; margin: 0; }
   .jogos-destaque, .studymon-wrap, .quiz-opcoes { grid-template-columns: 1fr; }
   .mascote { display: none; }
 }
+
+/* ================= SIDEBAR DO DASHBOARD ================= */
+.dashboard-layout { display: flex; min-height: 100vh; }
+
+.dashboard-sidebar {
+  width: 220px; flex-shrink: 0; background: var(--azul-escuro);
+  display: flex; flex-direction: column; padding: 1.4rem 0; color: #fff;
+}
+.dashboard-sidebar .marca {
+  font-family: var(--font-display), sans-serif; font-weight: 700;
+  font-size: 1.3rem; text-align: center; padding: 0.6rem 1rem 1.6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 1.2rem;
+}
+.dashboard-sidebar nav { display: flex; flex-direction: column; gap: 0.4rem; padding: 0 0.7rem; flex: 1; }
+.dashboard-sidebar nav a {
+  display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1.1rem;
+  color: #fff; text-decoration: none; font-family: var(--font-display), sans-serif;
+  font-weight: 700; font-size: 1.05rem;
+}
+.dashboard-sidebar nav a:hover { background: rgba(255,255,255,0.10); }
+.dashboard-sidebar nav a.ativo { background: var(--azul-medio); }
+.dashboard-sidebar .sair-btn {
+  margin: 1rem 0.7rem 0; padding: 0.8rem; background: rgba(255,255,255,0.12);
+  color: #fff; border: none; font-family: var(--font-display), sans-serif;
+  font-weight: 700; cursor: pointer;
+}
+.dashboard-sidebar .sair-btn:hover { background: rgba(255,255,255,0.22); }
+
+/* área de conteúdo à direita da sidebar (reusa o dashboard-shell existente) */
+.dashboard-conteudo { flex: 1; min-width: 0; background: var(--azul-claro); }
+
+@media (max-width: 760px) {
+  .dashboard-layout { flex-direction: column; }
+  .dashboard-sidebar { width: 100%; flex-direction: row; overflow-x: auto; padding: 0.5rem; }
+  .dashboard-sidebar .marca { display: none; }
+}
+
+/* ================= GAVETA DO PERFIL (aluno) ================= */
+.avatar-wrap { position: relative; flex-shrink: 0; }
+.avatar-gaveta-fundo { position: fixed; inset: 0; z-index: 40; }
+.avatar-gaveta {
+  position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 50;
+  background: #fff; min-width: 190px; box-shadow: 0 8px 24px rgba(9,64,116,0.25);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.avatar-gaveta-nome {
+  padding: 0.9rem 1rem; font-family: var(--font-display); font-weight: 700;
+  color: var(--azul-escuro); border-bottom: 1px solid var(--linha);
+}
+.avatar-gaveta button {
+  text-align: left; padding: 0.8rem 1rem; border: none; background: #fff;
+  font-family: var(--font-body); font-weight: 700; font-size: 0.95rem;
+  color: var(--texto); cursor: pointer;
+}
+.avatar-gaveta button:hover { background: var(--azul-claro); }
+.avatar-gaveta button.sair { color: #c0392b; border-top: 1px solid var(--linha); }
+
+/* ================= PERFIL DO ALUNO (treinador) ================= */
+.perfil-wrap { max-width: 720px; margin: 0 auto; }
+.perfil-cabecalho { background: var(--card); border: 1px solid var(--linha); padding: 1.2rem 1.5rem; margin-bottom: 1.2rem; }
+.perfil-cabecalho h2 { color: var(--texto); }
+.perfil-cabecalho p { color: var(--texto-suave); margin: 0.3rem 0 0; }
+
+.perfil-personagem { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; background: var(--card); border: 1px solid var(--linha); padding: 1.5rem; align-items: center; }
+.perfil-avatar-grande { width: 200px; height: 240px; display: grid; place-items: center; overflow: hidden; background: var(--azul-claro); }
+.perfil-avatar-grande img { width: 100%; height: 100%; -o-object-fit: contain; object-fit: contain; }
+
+.perfil-opcoes h3 { color: var(--texto); margin-bottom: 0.8rem; }
+.perfil-botoes { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+.perfil-op { background: var(--card); border: 2px solid var(--azul-escuro); color: var(--azul-escuro); padding: 0.7rem 1.4rem; font-weight: 700; cursor: pointer; font-family: var(--font-body); }
+.perfil-op.ativo { background: var(--azul-escuro); color: #fff; }
+.perfil-nota { color: var(--texto-suave); font-size: 0.85rem; margin-top: 1rem; }
+
+@media (max-width: 640px) { .perfil-personagem { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+
+/* ================= LOGO ================= */
+.logo-img { width: 90px; height: 90px; -o-object-fit: contain; object-fit: contain; }
+.logo-img-pequena { height: 54px; width: auto; -o-object-fit: contain; object-fit: contain; }
+.study-logo { height: 40px; width: auto; -o-object-fit: contain; object-fit: contain; flex-shrink: 0; }
 .hover\:-translate-y-2:hover {
   --tw-translate-y: -0.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));

@@ -25,7 +25,7 @@ export default function LoginAluno() {
   return (
     <div>
       <div className="login-topo">
-        <span className="logo-ph">LOGO</span>
+        <img className="logo-img-pequena" src="/studymons/logo.png" alt="StudyMons" />
         <span>StudyMons</span>
       </div>
       <form className="login-corpo" onSubmit={entrar}>

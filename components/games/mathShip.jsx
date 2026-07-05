@@ -70,7 +70,7 @@ export default function MathShip({ onBack }) {
   // Calcula rotação da nave
   let shipRotation = 0;
   if (closestAsteroid) {
-    shipRotation = closestAsteroid.angle * (180 / Math.PI);
+    shipRotation = closestAsteroid.angle * (180 / Math.PI) + 90;
   }
 
   // Lida com a digitação
@@ -129,7 +129,16 @@ export default function MathShip({ onBack }) {
           </div>
 
           <div style={{ ...styles.ship, transform: `translate(-50%, -50%) rotate(${shipRotation}deg)` }}>
-            <div style={{ transform: 'rotate(45deg)' }}></div>
+            <img 
+              src="/studymons/mathShip/nave.png" 
+              alt="Nave Espacial" 
+              style={{ 
+                width: '80px', 
+                height: '80px', 
+                objectFit: 'contain',
+                imageRendering: 'pixelated' /* <-- Magia do Pixel Art aqui! */
+              }} 
+            />
           </div>
 
           {shots.map(shot => (
@@ -185,11 +194,23 @@ export default function MathShip({ onBack }) {
 }
 
 const styles = {
-  container: { position: 'relative', width: '100vw', height: '100vh', backgroundColor: '#050510', overflow: 'hidden', color: '#fff', fontFamily: 'sans-serif' },
+  container: { 
+    position: 'relative', 
+    width: '100vw', 
+    height: '100vh', 
+    backgroundImage: 'url("/studymons/mathShip/fundoEspaco.gif")',
+    backgroundSize: 'auto',         /* <-- Agora não estica mais */
+    backgroundRepeat: 'repeat',     /* <-- Agora se repete como azulejo */
+    imageRendering: 'pixelated',    /* <-- Deixa o fundo de pixel art nítido também */
+    backgroundPosition: 'center',
+    overflow: 'hidden', 
+    color: '#fff', 
+    fontFamily: 'sans-serif' 
+  },
   header: { position: 'absolute', top: 20, left: 20, right: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 30 },
   score: { fontSize: '24px', fontWeight: 'bold' },
   exitButton: { backgroundColor: 'transparent', color: '#fff', border: '1px solid #fff', padding: '5px 10px', borderRadius: '5px', cursor: 'pointer' },
-  ship: { position: 'absolute', top: '50%', left: '50%', fontSize: '40px', transition: 'transform 0.1s linear', zIndex: 20 },
+  ship: { position: 'absolute', top: '50%', left: '50%', transition: 'transform 0.1s linear', zIndex: 20 },
   asteroid: { position: 'absolute', top: '50%', left: '50%', padding: '10px 15px', borderRadius: '8px', fontSize: '20px', fontWeight: 'bold', zIndex: 5, boxShadow: '0 4px 6px rgba(0,0,0,0.3)' },
   input: { position: 'absolute', bottom: 30, left: '50%', transform: 'translateX(-50%)', padding: '15px', fontSize: '24px', borderRadius: '8px', border: 'none', textAlign: 'center', width: '200px', color: '#000', backgroundColor: '#fff', boxShadow: '0 0 15px rgba(255,255,255,0.2)' },
   gameOver: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' },

@@ -9,7 +9,7 @@ export default function Inicial() {
     <div className="inicial">
       <div className="inicial-logo">
         {/* Troque o placeholder pelo logo: <img src="/studymons/logo.png" alt="StudyMons" /> */}
-        <span className="logo-ph">LOGO PNG</span>
+        <img className="logo-img" src="/studymons/logo.png" alt="StudyMons" />
         <span>StudyMons</span>
       </div>
 

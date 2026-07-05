@@ -50,6 +50,11 @@ export default function CombateCliente({ aluno, materias }) {
     }, 900);
   }
 
+  // Define qual imagem do inimigo usar com base no HP dele
+  const spriteInimigo = hpInimigo > 0 
+    ? "/studymons/combate/fantasmaVivo.png" 
+    : "/studymons/combate/fantasmaDerrota.png";
+
   return (
     <div>
       <StudyHeader aluno={aluno} />
@@ -58,12 +63,23 @@ export default function CombateCliente({ aluno, materias }) {
 
           {fase === "selecao" && (
             <>
-              <div className="combate-cena">
-                {/* Cenário pixelart -> <img className="cenario" src="/studymons/cenario.png" /> */}
-                <span className="sprite-ph" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}>
-                  cenário pixelart (PNG de fundo)
-                </span>
-                <div className="combate-lados">
+              <div className="combate-cena" style={{ position: "relative" }}>
+                {/* Cenário de fundo da seleção */}
+                <img 
+                  src="/studymons/combate/cenario.jpg" 
+                  alt="Cenário de Batalha" 
+                  style={{ 
+                    position: "absolute", 
+                    inset: 0, 
+                    width: "100%", 
+                    height: "100%", 
+                    border: "none",
+                    objectFit: "cover",
+                    imageRendering: "pixelated"
+                  }} 
+                />
+                
+                <div className="combate-lados" style={{ position: "relative", zIndex: 1 }}>
                   <div className="combatente">
                     {/* sprite do monstro do aluno */}
                     <span className={`sprite-ph ${nivelOk ? "" : "sprite-cinza"}`}>{m.companheiro}</span>
@@ -73,7 +89,17 @@ export default function CombateCliente({ aluno, materias }) {
                     </div>
                   </div>
                   <div className="combatente">
-                    <span className="sprite-ph">monstro inimigo</span>
+                    {/* Sprite do Inimigo na Seleção */}
+                    <img 
+                      src={spriteInimigo} 
+                      alt="Monstro Inimigo" 
+                      style={{ 
+                        width: "70px", 
+                        height: "70px", 
+                        objectFit: "contain", 
+                        imageRendering: "pixelated" 
+                      }} 
+                    />
                   </div>
                 </div>
               </div>
@@ -99,11 +125,37 @@ export default function CombateCliente({ aluno, materias }) {
 
           {fase === "batalha" && banco && (
             <>
-              <div className="combate-cena">
-                <span className="sprite-ph" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}>cenário pixelart</span>
-                <div className="combate-lados">
+              <div className="combate-cena" style={{ position: "relative" }}>
+                {/* Cenário de fundo da batalha ativa */}
+                <img 
+                  src="/studymons/combate/cenario.jpg" 
+                  alt="Cenário de Batalha" 
+                  style={{ 
+                    position: "absolute", 
+                    inset: 0, 
+                    width: "100%", 
+                    height: "100%", 
+                    border: "none",
+                    objectFit: "cover",
+                    imageRendering: "pixelated"
+                  }} 
+                />
+
+                <div className="combate-lados" style={{ position: "relative", zIndex: 1 }}>
                   <div className="combatente"><span className="sprite-ph">{m.companheiro}</span></div>
-                  <div className="combatente"><span className="sprite-ph">{banco.enemyName}</span></div>
+                  <div className="combatente">
+                    {/* Sprite Condicional do Inimigo na Batalha */}
+                    <img 
+                      src={spriteInimigo} 
+                      alt={banco.enemyName} 
+                      style={{ 
+                        width: "70px", 
+                        height: "70px", 
+                        objectFit: "contain", 
+                        imageRendering: "pixelated" 
+                      }} 
+                    />
+                  </div>
                 </div>
               </div>
 

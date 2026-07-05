@@ -62,16 +62,18 @@ export async function getAlunoLogado() {
   });
 }
 
-// Dados visuais que não moram no banco (cor, sprites).
+// Dados visuais que não moram no banco (cor + arte do livro por estágio).
+// As imagens ficam em /public/studymons/. Onde não há estágio 2, o
+// estágio 1 é reutilizado. null = ainda sem arte (mostra placeholder).
 const VISUAL_MATERIA = {
-  matematica: { cor: "matematica", sprite: null, spriteLivro: null },
-  portugues: { cor: "portugues", sprite: null, spriteLivro: null },
-  ciencias: { cor: "ciencias", sprite: null, spriteLivro: null },
-  ingles: { cor: "ingles", sprite: null, spriteLivro: null },
-  erer: { cor: "erer", sprite: null, spriteLivro: null },
-  arte: { cor: "arte", sprite: null, spriteLivro: null },
-  geografia: { cor: "geografia", sprite: null, spriteLivro: null },
-  historia: { cor: "historia", sprite: null, spriteLivro: null },
+  matematica: { cor: "matematica", livro1: "/studymons/coelho-1.png", livro2: null },
+  portugues: { cor: "portugues", livro1: "/studymons/preguica-1.png", livro2: null },
+  ciencias: { cor: "ciencias", livro1: "/studymons/Sapo-1.png", livro2: "/studymons/Sapo-2.png" },
+  ingles: { cor: "ingles", livro1: "/studymons/aguia-1.png", livro2: "/studymons/aguia-2.png" },
+  erer: { cor: "erer", livro1: "/studymons/cavalo-1.png", livro2: null },
+  arte: { cor: "arte", livro1: "/studymons/onca-1.png", livro2: null },
+  geografia: { cor: "geografia", livro1: "/studymons/lobo-1.png", livro2: null },
+  historia: { cor: "historia", livro1: "/studymons/tartaruga-1.png", livro2: null },
 };
 
 // Retorna o aluno + suas matérias já no formato que as telas usam.
@@ -88,6 +90,12 @@ export async function getDadosAluno() {
     const questoesPct = Math.min(100, Math.round((s.total / 20) * 100));
     const acertosPct = s.total > 0 ? Math.round((s.acertos / s.total) * 100) : 0;
 
+    const visual = VISUAL_MATERIA[p.materiaId] || { cor: "teal" };
+    // Escolhe a arte do livro conforme o estágio; se não há arte de
+    // estágio 2, cai pra do estágio 1.
+    const spriteLivro =
+      p.estagioEvolucao === "evolved" && visual.livro2 ? visual.livro2 : visual.livro1 || null;
+
     return {
       id: p.materiaId,
       nome: p.materia.nome,
@@ -102,7 +110,8 @@ export async function getDadosAluno() {
       acertos: s.acertos,
       questoesPct,
       acertosPct,
-      ...(VISUAL_MATERIA[p.materiaId] || { cor: "teal" }),
+      cor: visual.cor,
+      spriteLivro,
     };
   });
 

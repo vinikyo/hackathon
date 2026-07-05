@@ -77,24 +77,9 @@ Depois disso, abra **http://localhost:3000** no navegador. 🎉
 
 ---
 
-## 🖼️ Imagens que faltam
-
-Estas pastas têm um arquivo `.txt` avisando o que deve ser colocado nelas:
-
-- `public/jogos/` → capas dos minigames
-- `public/studymons/` → imagens dos companheiros
-
-O projeto funciona sem elas (com placeholders), mas fica mais bonito com as
-imagens reais no lugar.
 
 ---
 
-## 🔧 Problemas comuns
-
-**Erro "PrismaClient" ou "Cannot find module '@prisma/client'"**
-```bash
-npx prisma generate
-```
 
 **Quero apagar tudo e recomeçar o banco do zero**
 ```bash
@@ -111,19 +96,6 @@ npx prisma migrate dev --name historico_acertou
 
 ---
 
-## 📦 O que já é real (vem do banco) vs. o que ainda é mock
-
-**Real (banco de dados via Prisma):**
-- Login do aluno (valida o código no banco)
-- Login do gestor (e-mail + senha, com hash seguro)
-- XP das batalhas (`/combate`): vencer salva XP no progresso da matéria,
-  no total do aluno e no histórico
-- Ranking (`/ranking`): lê os alunos do banco, ordenados por XP
-
-**Ainda mock (dados fixos em `lib/mockData.js`)**
-- Catálogo de Jogos e Meus Studymons — não era prioridade no tempo do
-  hackathon, mas dá pra migrar para o banco depois, seguindo o mesmo padrão
-  usado no combate e no ranking.
 
 ---
 

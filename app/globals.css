@@ -1,0 +1,425 @@
+/* Tailwind (para os jogos importados). Preflight desligado no config. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif;
+  --font-body: "Segoe UI", Verdana, sans-serif;
+  --font-mono: "Courier New", monospace;
+
+  /* Paleta oficial (3 azuis) */
+  --azul-claro: #8ee5fe;
+  --azul-medio: #57b9ff;
+  --azul-escuro: #094074;
+
+  /* Neutros */
+  --fundo: #eaf7ff;         /* fundo geral, azul bem clarinho */
+  --card: #ffffff;
+  --texto: #0b2740;
+  --texto-suave: #5a6b82;
+  --linha: #dbeaf5;
+  --on-escuro: #ffffff;
+  --on-medio: #0b2740;
+
+  --verde: #2fbf94;
+  --sombra: 0 6px 0 rgba(9, 64, 116, 0.10);
+  --sombra-forte: 0 10px 24px rgba(9, 64, 116, 0.18);
+
+  /* estados */
+  --busca-bg: #eaf6ff;
+  --busca-ph: #5a7fa0;
+  --aviso-bg: #ffe08a;
+  --aviso-tx: #7a5b00;
+  --acerto-bg: #e5f7f0;
+  --erro-bg: #fde8ec;
+
+  /* cores de acento por matéria (cada seção tem sua identidade,
+     como no Escola Games) */
+  --mat-portugues: #ff7a59;
+  --mat-matematica: #4f8bf0;
+  --mat-ciencias: #2fbf94;
+  --mat-ingles: #a06bf0;
+  --mat-erer: #f0a53f;
+  --mat-geografia: #34b7c9;
+  --mat-arte: #f05b8e;
+  --mat-historia: #b5893f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(87, 185, 255, 0.18), transparent 40%),
+    radial-gradient(circle at 90% 5%, rgba(47, 191, 148, 0.12), transparent 35%),
+    var(--fundo);
+  color: var(--texto);
+  font-family: var(--font-body), sans-serif;
+}
+
+h1, h2, h3 { font-family: var(--font-display), sans-serif; margin: 0; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ---------------- Botões ---------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.4rem; border: none; cursor: pointer; border-radius: 16px;
+  font-family: var(--font-display), sans-serif; font-weight: 700;
+  padding: 0.85rem 1.6rem; font-size: 1rem; text-decoration: none;
+  transition: transform 0.1s ease, filter 0.1s ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-escuro { background: var(--azul-escuro); color: var(--on-escuro); }
+.btn-escuro:hover { filter: brightness(1.12); }
+.btn-claro { background: var(--card); color: var(--azul-escuro); border: 2px solid var(--azul-escuro); }
+.btn-bloco { width: 280px; padding: 1.05rem; font-size: 1.2rem; border-radius: 18px; box-shadow: var(--sombra-forte); }
+
+/* ================= TELA INICIAL ================= */
+.inicial {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1.4rem;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,0.25), transparent 45%),
+    linear-gradient(150deg, var(--azul-medio), var(--azul-escuro));
+  padding: 2rem;
+}
+.inicial-logo { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 2.5rem; background: var(--card); padding: 1rem 1.6rem; border-radius: 26px; box-shadow: var(--sombra-forte); }
+.inicial-logo img { width: 72px; height: 72px; object-fit: contain; }
+.inicial-logo span { font-family: var(--font-display), sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--texto); }
+
+/* logo placeholder (enquanto não há PNG) */
+.logo-ph {
+  width: 64px; height: 64px; display: grid; place-items: center; border-radius: 16px;
+  background: var(--azul-claro); border: 2px dashed var(--azul-escuro);
+  font-size: 0.6rem; color: var(--azul-escuro); text-align: center;
+}
+
+/* ================= LOGIN ALUNO ================= */
+.login-topo {
+  background: var(--azul-medio); padding: 1.2rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+}
+.login-topo img { width: 54px; height: 54px; object-fit: contain; }
+.login-topo span { font-family: var(--font-display), sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--texto); }
+.login-corpo {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(87,185,255,0.25), transparent 50%),
+    var(--fundo);
+  min-height: calc(100vh - 90px);
+  display: flex; flex-direction: column; align-items: center; padding-top: 3.5rem; gap: 1.2rem;
+}
+.login-corpo h2 { color: var(--azul-escuro); font-size: 1.5rem; }
+.login-input {
+  width: min(420px, 88vw); padding: 1rem 1.2rem; border-radius: 16px;
+  border: 3px solid var(--azul-escuro); background: var(--card);
+  font-size: 1.1rem; color: var(--texto); outline: none; box-shadow: var(--sombra);
+}
+
+/* campo de senha com olhinho custom (substitui o olho nativo do navegador,
+   que em alguns navegadores some para sempre ao perder o foco) */
+.campo-senha { position: relative; width: min(420px, 88vw); }
+.campo-senha .login-input { width: 100%; padding-right: 3.2rem; }
+.campo-senha .login-input::-ms-reveal,
+.campo-senha .login-input::-ms-clear { display: none; }
+.campo-senha .login-input::-webkit-textfield-decoration-container { visibility: hidden; }
+.btn-olho {
+  position: absolute; top: 50%; right: 0.9rem; transform: translateY(-50%);
+  background: none; border: none; padding: 0.2rem; margin: 0;
+  color: var(--azul-escuro); cursor: pointer; display: grid; place-items: center;
+  opacity: 0.75; transition: opacity 0.15s ease;
+}
+.btn-olho:hover, .btn-olho:focus-visible { opacity: 1; }
+
+/* ================= HEADER INTERNO ================= */
+.study-header {
+  position: sticky; top: 0; z-index: 20;
+  max-width: 900px; margin: 0 auto; padding: 0.9rem 1rem 0;
+}
+.study-header-top {
+  background: var(--azul-medio); display: flex; align-items: center;
+  gap: 0.9rem; padding: 0.9rem 1.1rem 2.4rem;
+  border-radius: 22px 22px 26px 26px;
+  position: relative; z-index: 1;
+}
+.study-brand {
+  font-family: var(--font-display), sans-serif; font-weight: 700;
+  color: var(--texto); font-size: 1rem; white-space: nowrap;
+  position: absolute; top: 0.5rem; left: 1.2rem;
+}
+.study-search {
+  flex: 1; display: flex; align-items: center; gap: 0.5rem;
+  background: var(--busca-bg); padding: 0.7rem 1.1rem; border: none;
+  border-radius: 999px; margin-top: 0.6rem;
+}
+.study-search input { border: none; outline: none; width: 100%; font-size: 0.95rem; background: transparent; color: var(--texto); font-family: var(--font-body); }
+.study-search input::placeholder { color: var(--busca-ph); }
+.study-avatar {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: var(--card); border: none; cursor: pointer; overflow: hidden;
+  display: grid; place-items: center; color: var(--azul-escuro); font-weight: 700;
+  margin-top: 0.6rem;
+}
+.study-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.study-nav {
+  background: var(--azul-escuro); display: flex; align-items: center;
+  justify-content: center; gap: 0; flex-wrap: wrap;
+  border-radius: 16px; margin: -1.4rem auto 0; max-width: 92%;
+  position: relative; z-index: 2; box-shadow: var(--sombra);
+}
+.study-nav a {
+  color: var(--on-escuro); font-family: var(--font-display), sans-serif; font-weight: 700;
+  text-decoration: none; padding: 0.7rem 1.3rem; font-size: 1rem; position: relative;
+}
+.study-nav a + a { border-left: 1px solid rgba(255,255,255,0.3); }
+.study-nav a:hover, .study-nav a.ativo { background: rgba(255,255,255,0.14); }
+.study-nav a:first-child { border-radius: 16px 0 0 16px; }
+.study-nav a:last-child { border-radius: 0 16px 16px 0; }
+
+/* área de conteúdo interno */
+.tela { background: transparent; min-height: 60vh; padding: 1.5rem 1.2rem 3rem; }
+.tela-centro { max-width: 980px; margin: 0 auto; }
+
+/* ================= TELA JOGOS ================= */
+/* faixa de destaque no topo (cheia, colorida, como banner) */
+.jogos-hero {
+  background: linear-gradient(120deg, var(--azul-medio), var(--azul-escuro));
+  border-radius: 26px; padding: 1.4rem 1.6rem; margin-bottom: 1.6rem;
+  color: var(--on-escuro); display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--sombra-forte); gap: 1rem;
+}
+.jogos-hero h1 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+.jogos-hero p { margin: 0; opacity: 0.92; font-size: 0.95rem; max-width: 60ch; }
+.jogos-hero .hero-emoji { font-size: 3rem; }
+
+.jogos-destaque { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 2rem; }
+.jogo-grande {
+  background: var(--card); border: none; box-shadow: var(--sombra);
+  height: 230px; display: grid; place-items: center; overflow: hidden;
+  text-decoration: none; color: var(--texto); border-radius: 24px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.jogo-grande:hover { transform: translateY(-4px); box-shadow: var(--sombra-forte); }
+.jogo-grande img { width: 100%; height: 100%; object-fit: cover; }
+
+/* cabeçalho de cada matéria: bolinha colorida + nome, faixa própria */
+.materia-cab {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin: 1.8rem 0 0.9rem;
+}
+.materia-cab .bolinha {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; color: #fff; font-weight: 700;
+  font-family: var(--font-display); box-shadow: var(--sombra);
+}
+.materia-cab h2 {
+  font-size: 1.35rem; color: var(--texto);
+}
+.materia-cab .linha-cor {
+  flex: 1; height: 4px; border-radius: 999px; opacity: 0.35;
+}
+.jogos-linha {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr);
+  gap: 1.3rem; overflow-x: auto; padding: 0.3rem 0.2rem 1rem;
+}
+.jogo-card {
+  background: var(--card); border: none; box-shadow: var(--sombra);
+  height: 175px; display: grid; place-items: center; overflow: hidden;
+  text-decoration: none; color: var(--texto); min-width: 240px;
+  font-family: var(--font-display), sans-serif; font-weight: 700; border-radius: 24px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.jogo-card:not(.travado):hover { transform: translateY(-4px); box-shadow: var(--sombra-forte); }
+.jogo-card img { width: 100%; height: 100%; object-fit: cover; }
+/* card não-clicável (só o 1º de cada linha leva ao jogo) */
+.jogo-card.travado, .jogo-grande.travado { cursor: default; }
+
+/* placeholder de imagem de jogo */
+.img-ph {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--azul-claro), #d5f0ff);
+  color: var(--azul-escuro); font-family: var(--font-display), sans-serif;
+  font-weight: 700; font-size: 1.05rem; text-align: center; padding: 0.5rem;
+}
+
+/* mascote decorativo (canto direito) */
+.mascote { position: absolute; right: 1rem; pointer-events: none; }
+.mascote img { width: 120px; }
+
+/* ================= MEUS STUDYMONS (pokédex) ================= */
+.studymon-wrap {
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: 2rem; align-items: stretch;
+  min-height: 70vh;
+}
+
+/* bloco do livro + setas laterais. O livro é grande e a imagem
+   inserida preenche todo o espaço disponível. */
+.studymon-livro-bloco { display: flex; align-items: center; gap: 0.8rem; }
+.studymon-livro {
+  background: var(--card); box-shadow: var(--sombra-forte); border-radius: 28px;
+  flex: 1; align-self: stretch; min-height: 460px; display: grid; place-items: center;
+  overflow: hidden; position: relative; padding: 0;
+}
+/* a imagem cobre todo o livro, cortando o excesso pra preencher */
+.studymon-livro img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.studymon-info {
+  background: var(--card); box-shadow: var(--sombra-forte); border-radius: 28px;
+  padding: 2rem; display: flex; flex-direction: column; justify-content: center;
+}
+.studymon-info h2 { text-align: center; color: var(--texto); font-size: 1.9rem; margin-bottom: 0.4rem; }
+.studymon-info .subtitulo { text-align: center; color: var(--texto-suave); font-weight: 700; margin-bottom: 1.4rem; }
+.studymon-info p.desc { color: var(--texto-suave); font-size: 1rem; margin-bottom: 1.6rem; line-height: 1.5; }
+.stat { margin-bottom: 1.2rem; }
+.stat-label { font-weight: 700; font-size: 0.9rem; color: var(--texto); margin-bottom: 0.35rem; display: flex; justify-content: space-between; }
+.stat-track { height: 16px; background: var(--linha); overflow: hidden; border-radius: 999px; }
+.stat-fill { height: 100%; border-radius: 999px; transition: width 0.4s ease; }
+
+/* ---------------- Dashboard do gestor ---------------- */
+.dashboard-shell { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+.dashboard-hero { background: var(--card); border-radius: 20px; padding: 1.5rem; box-shadow: var(--sombra); }
+.dashboard-hero .hero-kicker { color: var(--azul-medio); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.dashboard-hero p { color: var(--texto-suave); }
+.dashboard-hero form { margin-top: 0.75rem; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+.stat-card { background: var(--card); border-radius: 16px; padding: 1rem 1.25rem; box-shadow: var(--sombra); display: flex; flex-direction: column; gap: 0.35rem; }
+.stat-card span { color: var(--texto-suave); font-size: 0.85rem; font-weight: 600; }
+.stat-card strong { font-size: 1.6rem; color: var(--azul-escuro); }
+
+.dashboard-alerta { border: 2px solid var(--aviso-bg); background: #fffaf0; }
+
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.dashboard-panel { background: var(--card); border-radius: 16px; padding: 1.25rem; box-shadow: var(--sombra); }
+.dashboard-panel-wide { grid-column: 1 / -1; }
+
+.section-title-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.75rem; }
+.section-title-row.compact h2 { font-size: 1.05rem; }
+.section-title-row span { color: var(--texto-suave); font-size: 0.8rem; }
+
+.table-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.table-row { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.75rem; background: var(--fundo); border-radius: 12px; }
+.table-row strong { display: block; color: var(--texto); }
+.table-row span { color: var(--texto-suave); font-size: 0.8rem; }
+.table-row-end { display: flex; align-items: center; gap: 0.6rem; }
+.dashboard-empty { color: var(--texto-suave); font-size: 0.9rem; }
+
+.status-pill { font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; }
+.status-pill.ok { background: var(--acerto-bg); color: #1f8a63; }
+.status-pill.warn { background: var(--aviso-bg); color: var(--aviso-tx); }
+
+.stack-cards { display: flex; flex-direction: column; gap: 0.6rem; }
+.mini-course { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.75rem; border-radius: 12px; background: var(--fundo); border-left: 5px solid var(--azul-medio); }
+.mini-course strong { display: block; }
+.mini-course span { color: var(--texto-suave); font-size: 0.8rem; }
+.mini-course.accent-matematica { border-left-color: var(--mat-matematica); }
+.mini-course.accent-portugues { border-left-color: var(--mat-portugues); }
+.mini-course.accent-ciencias { border-left-color: var(--mat-ciencias); }
+.mini-course.accent-ingles { border-left-color: var(--mat-ingles); }
+.mini-course.accent-erer { border-left-color: var(--mat-erer); }
+.mini-course.accent-geografia { border-left-color: var(--mat-geografia); }
+.mini-course.accent-arte { border-left-color: var(--mat-arte); }
+.mini-course.accent-historia { border-left-color: var(--mat-historia); }
+
+.stat-block { padding: 0.5rem 0; border-bottom: 1px solid var(--linha); }
+.stat-block:last-child { border-bottom: none; }
+.stat-sub { display: block; margin-top: 0.25rem; color: var(--texto-suave); font-size: 0.75rem; }
+
+.ranking-board { display: flex; flex-direction: column; gap: 0.4rem; }
+.ranking-row { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: 0.6rem; padding: 0.5rem 0.75rem; background: var(--fundo); border-radius: 12px; }
+.ranking-pos { font-weight: 700; color: var(--azul-medio); }
+.ranking-row strong { display: block; }
+
+.novo-aluno-form { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--linha); }
+.novo-aluno-form .login-input { flex: 1; min-width: 140px; margin: 0; }
+.novo-aluno-form p { flex-basis: 100%; margin: 0.25rem 0 0; font-size: 0.85rem; }
+/* setas laterais grandes, redondas */
+.seta {
+  background: var(--card); border: 2px solid var(--azul-escuro); color: var(--azul-escuro);
+  width: 50px; height: 50px; font-size: 1.6rem; cursor: pointer; display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 700; border-radius: 50%; flex-shrink: 0;
+  box-shadow: var(--sombra); transition: transform 0.12s ease;
+}
+.seta:not(:disabled):hover { transform: scale(1.1); }
+.seta:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ================= COMBATE QUIZ ================= */
+.combate-cena {
+  background: var(--azul-medio); position: relative; overflow: hidden;
+  aspect-ratio: 16 / 9; max-height: 440px; min-height: 320px;
+  display: grid; place-items: center; border-radius: 22px;
+}
+.combate-cena img.cenario { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* combatentes centralizados verticalmente, com espaçamento equilibrado */
+.combate-lados {
+  position: relative; z-index: 2; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: space-around;
+  padding: 0 3rem;
+}
+.combatente { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
+.combatente img { width: 150px; height: 150px; object-fit: contain; image-rendering: pixelated; }
+.sprite-ph { width: 140px; height: 140px; display: grid; place-items: center; background: rgba(255,255,255,0.6); border: 2px dashed var(--azul-escuro); border-radius: 16px; font-size: 0.75rem; color: var(--azul-escuro); text-align: center; }
+.sprite-cinza { filter: grayscale(1) brightness(0.7); }
+.selecao-setas { display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+.combate-msg { background: var(--azul-medio); color: var(--texto); font-family: var(--font-display); font-weight: 700; text-align: center; padding: 1.4rem; font-size: 1.1rem; border-radius: 22px; margin-top: 1rem; }
+.combate-aviso { background: var(--aviso-bg); color: var(--aviso-tx); text-align: center; padding: 1rem; font-weight: 700; border-radius: 22px; margin-top: 1rem; }
+
+/* quiz de batalha */
+.quiz-hp { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+.quiz-hp .rot { width: 64px; font-weight: 700; font-size: 0.8rem; color: var(--texto); }
+.quiz-hp-track { flex: 1; height: 14px; background: var(--linha); overflow: hidden; border-radius: 999px; }
+.quiz-hp-fill { height: 100%; border-radius: 999px; }
+.quiz-hp-fill.eu { background: var(--verde); }
+.quiz-hp-fill.inimigo { background: var(--azul-escuro); }
+.quiz-pergunta { background: var(--card); box-shadow: var(--sombra); padding: 1.4rem; margin-top: 1rem; border-radius: 22px; }
+.quiz-pergunta h3 { color: var(--texto); margin-bottom: 1rem; }
+.quiz-opcoes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.quiz-op {
+  background: var(--card); border: 2px solid var(--azul-escuro); color: var(--texto);
+  padding: 0.9rem; font-size: 1rem; cursor: pointer; text-align: left; font-family: var(--font-body);
+  border-radius: 14px;
+}
+.quiz-op:hover { background: var(--azul-claro); }
+.quiz-op.certa { background: var(--acerto-bg); border-color: var(--verde); }
+.quiz-op.errada { background: var(--erro-bg); border-color: #e0526d; }
+
+/* ================= RANKING ================= */
+.ranking-abas { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.2rem; }
+.ranking-aba {
+  background: var(--card); border: 2px solid var(--azul-escuro); color: var(--azul-escuro);
+  padding: 0.5rem 1.1rem; font-weight: 700; cursor: pointer; font-family: var(--font-body);
+  border-radius: 999px;
+}
+.ranking-aba.ativa { background: var(--azul-escuro); color: var(--on-escuro); }
+.ranking-caixa {
+  background: var(--cor-materia, var(--azul-medio)); padding: 1.2rem; max-width: 520px; margin: 0 auto;
+  border-radius: 26px; box-shadow: var(--sombra-forte); transition: background 0.3s ease;
+}
+.ranking-caixa h2 { color: var(--on-escuro); text-align: center; margin-bottom: 1rem; font-size: 1.5rem; }
+.ranking-lista { background: var(--card); max-height: 380px; overflow-y: auto; border-radius: 18px; }
+.ranking-item { display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--linha); }
+.ranking-item:last-child { border-bottom: none; }
+.ranking-item.eu { background: var(--azul-claro); }
+.ranking-foto { width: 42px; height: 42px; border-radius: 50%; background: var(--linha); display: grid; place-items: center; color: var(--azul-escuro); overflow: hidden; flex-shrink: 0; font-weight: 700; }
+.ranking-foto img { width: 100%; height: 100%; object-fit: cover; }
+.ranking-nome { flex: 1; font-family: var(--font-display); font-weight: 700; color: var(--texto); }
+.ranking-xp { font-family: var(--font-mono); font-weight: 700; color: var(--azul-escuro); }
+
+/* ================= PERFIL (mockup) ================= */
+.perfil-mock { background: var(--card); box-shadow: var(--sombra); padding: 2.5rem; text-align: center; max-width: 520px; margin: 2rem auto; }
+.perfil-mock h2 { color: var(--texto); margin-bottom: 0.8rem; }
+.perfil-mock p { color: var(--texto-suave); }
+
+/* ================= jogos em tela cheia (tema) ================= */
+.game-shell { min-height: 100vh; background: var(--fundo); }
+.game-shell > div.min-h-screen { background: transparent !important; }
+.game-shell [class*="bg-gradient"] { background-image: none !important; }
+
+/* ================= responsivo ================= */
+@media (max-width: 760px) {
+  .jogos-destaque, .studymon-wrap, .quiz-opcoes { grid-template-columns: 1fr; }
+  .mascote { display: none; }
+}

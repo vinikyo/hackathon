@@ -1,0 +1,19 @@
+Coloque aqui os PNGs dos Studymons e da marca. Nomes sugeridos
+(e onde cada um é referenciado no código):
+
+logo.png          -> tela inicial e logins (hoje mostra "LOGO PNG")
+aluno.png         -> foto do aluno no header (contaAluno.foto no mockData.js)
+mascote.png       -> mascote decorativo da tela de Jogos
+
+Por matéria (ajuste os caminhos em lib/mockData.js -> materias[].sprite / .spriteLivro):
+coelho.png        -> Studymon de Português (sprite de combate)
+coelho-livro.png  -> arte no livro (tela Meus Studymons)
+polvo.png / polvo-livro.png     -> Matemática
+sapo.png  / sapo-livro.png      -> Ciências
+
+Cenário / inimigos do CombateQuiz:
+cenario.png       -> fundo pixelart da batalha
+inimigo.png       -> monstro inimigo
+
+Para ativar uma imagem: no lib/mockData.js troque o campo de null para o
+caminho, ex:  sprite: "/studymons/coelho.png"

@@ -1,0 +1,4 @@
+Capas dos jogos (aparecem nos cards da tela de Jogos).
+Para ativar: em lib/mockData.js, adicione o campo "imagem" ao jogo, ex:
+  imagem: "/jogos/mathship.png"
+Sem esse campo, o card mostra o placeholder "Imagem jogo".

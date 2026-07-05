@@ -1,0 +1,71 @@
+// Schema mínimo para o hackathon. Baseado no diagrama ER validado,
+// mas só com as tabelas que as telas do aluno usam hoje.
+// SQLite = um arquivo local (dev.db), zero configuração de servidor.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Aluno {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  turma        String
+  matricula    String   @unique
+  codigoAcesso String   @unique // a "carteirinha" (login)
+  xpTotal      Int      @default(0)
+  nivelConta   Int      @default(1)
+
+  progresso    ProgressoMateria[]
+  historico    HistoricoJogo[]
+}
+
+model Materia {
+  id                 String  @id // "portugues", "matematica", "ciencias"
+  nome               String
+  companheiro        String  // criatura fixa da matéria
+  descricao          String
+  nivelMinimoCombate Int     @default(1)
+
+  progresso          ProgressoMateria[]
+  historico          HistoricoJogo[]
+}
+
+model ProgressoMateria {
+  id              Int    @id @default(autoincrement())
+  aluno           Aluno  @relation(fields: [alunoId], references: [id])
+  alunoId         Int
+  materia         Materia @relation(fields: [materiaId], references: [id])
+  materiaId       String
+  xp              Int    @default(0)
+  nivel           Int    @default(1)
+  estagioEvolucao String @default("baby")
+
+  @@unique([alunoId, materiaId])
+}
+
+model Professor {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String   @unique
+  senhaHash String   // formato "salt:hash" (scrypt), ver lib/auth.js
+  escola    String   @default("Escola Elefante Letrado")
+  criadoEm  DateTime @default(now())
+}
+
+model HistoricoJogo {
+  id        Int      @id @default(autoincrement())
+  aluno     Aluno    @relation(fields: [alunoId], references: [id])
+  alunoId   Int
+  materia   Materia  @relation(fields: [materiaId], references: [id])
+  materiaId String
+  origem    String   // "quiz" ou "jogo"
+  acertou   Boolean  @default(false) // true = acertou a questão
+  pontos    Int      @default(0)
+  xpGanho   Int      @default(0)
+  jogadoEm  DateTime @default(now())
+}

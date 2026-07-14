@@ -1,9 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/combate/page": "app/combate/page.js",
-  "/jogos/page": "app/jogos/page.js",
-  "/studymons/page": "app/studymons/page.js",
-  "/jogos/[id]/page": "app/jogos/[id]/page.js",
-  "/ranking/page": "app/ranking/page.js",
-  "/login/aluno/page": "app/login/aluno/page.js"
-}

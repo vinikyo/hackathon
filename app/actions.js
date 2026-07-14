@@ -376,3 +376,99 @@ export async function getRankingPorMateria(materiaId) {
     xpTotal: p.xp,
   }));
 }
+
+// ==========================================================
+// ---- DASHBOARD: turmas + filtro por período ----
+// ==========================================================
+
+// Converte a opção de período num Date de corte (ou null pra "ano"/tudo).
+function inicioDoPeriodo(periodo) {
+  const agora = new Date();
+  const d = new Date(agora);
+  switch (periodo) {
+    case "hoje": d.setHours(0, 0, 0, 0); return d;
+    case "7dias": d.setDate(d.getDate() - 7); return d;
+    case "30dias": d.setDate(d.getDate() - 30); return d;
+    case "ano": d.setFullYear(d.getFullYear() - 1); return d;
+    default: return null;
+  }
+}
+
+// Lista as turmas existentes (valores distintos de aluno.turma).
+export async function getTurmas() {
+  const alunos = await prisma.aluno.findMany({ select: { turma: true } });
+  const turmas = [...new Set(alunos.map((a) => a.turma).filter(Boolean))].sort();
+  return turmas;
+}
+
+// Relatório de uma turma num período: jogos jogados, XP da turma,
+// top 5 e ranking completo. Tudo filtrado por jogadoEm quando aplicável.
+export async function getRelatorioTurma(turma, periodo) {
+  const desde = inicioDoPeriodo(periodo);
+
+  // alunos da turma
+  const alunos = await prisma.aluno.findMany({
+    where: turma ? { turma } : {},
+    orderBy: { xpTotal: "desc" },
+    select: { id: true, nome: true, turma: true, xpTotal: true },
+  });
+  const idsTurma = alunos.map((a) => a.id);
+
+  // jogos jogados no período pela turma
+  const whereHist = {
+    alunoId: { in: idsTurma.length ? idsTurma : [-1] },
+    ...(desde ? { jogadoEm: { gte: desde } } : {}),
+  };
+  const [jogosJogados, xpAgg, jogadasPorAluno] = await Promise.all([
+    prisma.historicoJogo.count({ where: whereHist }),
+    prisma.aluno.aggregate({ where: turma ? { turma } : {}, _sum: { xpTotal: true } }),
+    prisma.historicoJogo.groupBy({
+      by: ["alunoId"],
+      where: whereHist,
+      _count: { _all: true },
+    }),
+  ]);
+
+  const mapaJogadas = Object.fromEntries(
+    jogadasPorAluno.map((j) => [j.alunoId, j._count._all])
+  );
+
+  // monta ranking com total de jogos (no período) + XP
+  const ranking = alunos.map((a) => ({
+    id: a.id,
+    nome: a.nome,
+    turma: a.turma,
+    xpTotal: a.xpTotal,
+    jogos: mapaJogadas[a.id] || 0,
+  }));
+
+  // top 5 por nº de jogos no período (com % relativa ao total de jogos)
+  const totalJogos = jogosJogados || 1;
+  const top5 = [...ranking]
+    .sort((a, b) => b.jogos - a.jogos)
+    .slice(0, 5)
+    .map((a) => ({ ...a, pct: Math.round((a.jogos / totalJogos) * 100) }));
+
+  return {
+    jogosJogados,
+    xpTurma: xpAgg._sum.xpTotal || 0,
+    top5,
+    ranking,
+  };
+}
+
+// Painel (Novidades): jogos jogados + XP ganho num período (rede toda).
+export async function getResumoPainel(periodo) {
+  const desde = inicioDoPeriodo(periodo);
+  const whereHist = desde ? { jogadoEm: { gte: desde } } : {};
+
+  const [jogosJogados, xpAgg] = await Promise.all([
+    prisma.historicoJogo.count({ where: whereHist }),
+    prisma.historicoJogo.aggregate({ where: whereHist, _sum: { xpGanho: true } }),
+  ]);
+
+  return {
+    jogosJogados,
+    xpGanho: xpAgg._sum.xpGanho || 0,
+  };
+}

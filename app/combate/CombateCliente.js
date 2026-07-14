@@ -80,11 +80,15 @@ export default function CombateCliente({ aluno, materias }) {
                 />
                 
                 <div className="combate-lados" style={{ position: "relative", zIndex: 1 }}>
-                  <div className="combatente">
+                  <div className="combatente">  
                     {/* sprite do monstro do aluno */}
-                    <span className={`sprite-ph ${nivelOk ? "" : "sprite-cinza"}`}>{m.companheiro}</span>
-                    <div className="selecao-setas">
+                    <div className="selecao-rabbit">
                       <button className="seta" onClick={() => setI((v) => Math.max(0, v - 1))} disabled={i === 0}>‹</button>
+                      <img
+                        src="/studymons/combate/coelhoCosta.png"
+                        alt={m.companheiro}
+                        className={nivelOk ? "" : "sprite-cinza"}
+                      />
                       <button className="seta" onClick={() => setI((v) => Math.min(materias.length - 1, v + 1))} disabled={i === materias.length - 1}>›</button>
                     </div>
                   </div>
@@ -142,7 +146,12 @@ export default function CombateCliente({ aluno, materias }) {
                 />
 
                 <div className="combate-lados" style={{ position: "relative", zIndex: 1 }}>
-                  <div className="combatente"><span className="sprite-ph">{m.companheiro}</span></div>
+                  <div className="combatente">
+                    <img
+                      src="/studymons/combate/coelhoCosta.png"
+                      alt={m.companheiro}
+                    />
+                  </div>
                   <div className="combatente">
                     {/* Sprite Condicional do Inimigo na Batalha */}
                     <img 

@@ -62,7 +62,7 @@ export default function JogosCliente({ aluno }) {
               <h1>Olá, {aluno?.nome || "aluno"}! Bora jogar e aprender?</h1>
               <p>Escolha um joguinho por matéria. Cada vitória faz seu Studymon evoluir!</p>
             </div>
-            <span className="hero-emoji" aria-hidden>🎮</span>
+            <span className="hero-emoji" aria-hidden></span>
           </div>
 
           {destaques.length > 0 && (

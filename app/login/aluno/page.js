@@ -29,6 +29,9 @@ export default function LoginAluno() {
         <span>StudyMons</span>
       </div>
       <form className="login-corpo" onSubmit={entrar}>
+        <button type="button" className="btn-voltar" onClick={() => router.push("/")}>
+          ‹ Voltar
+        </button>
         <h2>Insira seu login</h2>
         <input
           className="login-input"

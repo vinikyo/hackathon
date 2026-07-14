@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import StudyHeader from "@/components/StudyHeader";
 import { jogos } from "@/lib/mockData";
 
 // Jogos reais portados da branch main:
@@ -32,21 +34,63 @@ export default function PaginaDoJogo({ params }) {
 
   if (!jogo || !Jogo) {
     return (
-      <main className="inner-page narrow">
-        <div className="page-copy">
-          <h1>Jogo não encontrado.</h1>
-          <Link className="btn btn-primary" href="/jogos">Voltar ao hub</Link>
+      <div>
+        <StudyHeader />
+        <div className="tela">
+          <div className="tela-centro">
+            <div className="jogo-nao-encontrado">
+              <h1>Jogo não encontrado.</h1>
+              <Link className="btn btn-escuro" href="/jogos">Voltar aos jogos</Link>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
     );
   }
 
-  // O jogo fica dentro de .game-shell, cujo fundo segue o tema — assim
-  // jogos com fundo claro OU escuro fixo passam a acompanhar a
-  // plataforma. O toggle fica flutuando no canto pra trocar na hora.
+  // Linhas do quadro BNCC. Usamos os campos que existem no catálogo;
+  // onde não há dado específico, mostramos um traço.
+  const bnccLinhas = [
+    { rotulo: "Componente", valor: jogo.materia },
+    { rotulo: "Ano / Faixa", valor: jogo.ano },
+    { rotulo: "Unidade temática", valor: jogo.trilha || "—" },
+    { rotulo: "Objeto de conhecimento", valor: jogo.descricao },
+    { rotulo: "Habilidade (BNCC)", valor: jogo.bncc },
+  ];
+
   return (
-    <div className="game-shell">
-      <Jogo onBack={() => router.push("/jogos")} />
+    <div>
+      <StudyHeader />
+      <div className="tela">
+        <div className="tela-centro">
+          <div className="jogo-cabecalho">
+            <button className="btn-voltar" onClick={() => router.push("/jogos")}>
+              ‹ Voltar aos jogos
+            </button>
+            <h1 className="jogo-titulo">{jogo.titulo}</h1>
+          </div>
+
+          {/* moldura padrão com o jogo dentro (estilo Escola Games) */}
+          <div className="jogo-moldura">
+            <div className="game-shell jogo-area">
+              <Jogo onBack={() => router.push("/jogos")} />
+            </div>
+          </div>
+
+          {/* quadro BNCC relacionado ao jogo */}
+          <div className="bncc-quadro">
+            <div className="bncc-quadro-titulo">BNCC — Ensino Fundamental</div>
+            <div className="bncc-tabela">
+              {bnccLinhas.map((l) => (
+                <div key={l.rotulo} className="bncc-coluna">
+                  <div className="bncc-cabecalho">{l.rotulo}</div>
+                  <div className="bncc-valor">{l.valor}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

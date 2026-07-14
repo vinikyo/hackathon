@@ -1,4 +1,4 @@
-# 🐾 StudyMons — Maré do Saber
+  # 🐾 StudyMons — Maré do Saber
 
 Plataforma educativa gamificada: o aluno estuda matérias, evolui companheiros
 (Studymons), joga minigames e sobe no ranking da turma. O gestor (professor)

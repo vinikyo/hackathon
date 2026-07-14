@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+coverage/
+
+# prisma local sqlite database
+prisma/dev.db
+prisma/dev.db-journal
+
+# environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# deployment and editor/OS noise
+.vercel/
+.DS_Store
+Thumbs.db
